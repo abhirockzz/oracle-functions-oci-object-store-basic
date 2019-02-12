@@ -21,14 +21,14 @@ public class ObjectStoreGetFunction {
     private ObjectStorage objStoreClient = null;
 
     public ObjectStoreGetFunction() {
-        System.err.println("Inside ObjectStoreGetFunction constructor");
 
         try {
             String privateKey = System.getenv().get("OCI_PRIVATE_KEY_FILE_NAME");
-            System.err.println("Private key " + privateKey);
             Supplier<InputStream> privateKeySupplier = () -> {
                 InputStream is = null;
                 String ociPrivateKeyPath = "/function/" + privateKey;
+                System.err.println("Private key location - " + ociPrivateKeyPath);
+
                 try {
                     is = new FileInputStream(ociPrivateKeyPath);
                 } catch (FileNotFoundException ex) {
@@ -52,7 +52,7 @@ public class ObjectStoreGetFunction {
             objStoreClient.setRegion(System.getenv().get("REGION"));
 
         } catch (Throwable ex) {
-            System.err.println("Error occurred in ObjectStoreListFunction constructor " + ex.getMessage());
+            System.err.println("Error occurred in ObjectStoreListFunction constructor - " + ex.getMessage());
 
         }
     }

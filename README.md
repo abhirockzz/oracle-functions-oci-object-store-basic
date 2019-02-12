@@ -18,7 +18,7 @@ Last but not the least, clone (`git clone https://github.com/abhirockzz/oracle-f
 
 Create an application with required configuration - all your functions will be a part of this application
 
-`fn create app --annotation oracle.com/oci/subnetIds='["<OCI_SUBNET_OCIDs>"]' --config TENANCY=<TENANCY_OCID> --config USER=<USER_OCID --config FINGERPRINT=<PUBLIC_KEY_FINGERPRINT> --config PASSPHRASE=<PASSPHRASE> --config REGION=<OCI_REGION> --config OCI_PRIVATE_KEY_FILE_NAME=<OCI_PRIVATE_KEY_FILE_NAME> --config NAMESPACE=<NAMESPACE> fn-object-store-app`
+`fn create app --annotation oracle.com/oci/subnetIds='["<OCI_SUBNET_OCIDs>"]' --config TENANCY=<TENANCY_OCID> --config USER=<USER_OCID --config FINGERPRINT=<PUBLIC_KEY_FINGERPRINT> --config PASSPHRASE=<PASSPHRASE> --config REGION=<OCI_REGION> --config NAMESPACE=<NAMESPACE> fn-object-store-app`
 
 Summary of the configuration parameters
 
@@ -26,14 +26,13 @@ Summary of the configuration parameters
 - `TENANCY` - OCID of your tenancy
 - `USER` - OCID of the user which will be used to execute the Object Storage put, get, list operations (should have required privileges)
 - `FINGERPRINT` - public key fingerprint of the user
-- `OCI_PRIVATE_KEY_FILE_NAME` - name of the private key file
 - `PASSPHRASE` - passphrase of the private key
 - `REGION` - region of your Object Storage service
 - `NAMESPACE` - Object Storage namespace (see [this](https://docs.cloud.oracle.com/iaas/Content/Object/Tasks/understandingnamespaces.htm))
 
 For e.g.
 
-`fn create app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaabrg5uf2uzc3ni4jkz4vhqwprofmlmo2mpumnuddd7iandssruohq"]' --config TENANCY=ocid1.tenancy.oc1..aaaaaaaaydrjm42otncda2xn7qtv7l3hqnd3zxn2u2siwdhniibwfv4wwhta --config USER=ocid1.user.oc1..aaaaaaaa4seqx6jeyma42ldy4cbuv35q4l42scz5p4rkz3rauuoioo26qwmq --config FINGERPRINT=42:82:5f:44:ca:a1:2e:58:d2:42:6a:af:52:d5:3d:04 --config PASSPHRASE=4242 --config REGION=us-phoenix-1 --config OCI_PRIVATE_KEY_FILE_NAME=oci_private_key.pem --config NAMESPACE=foobar fn-object-store-app`
+`fn create app --annotation oracle.com/oci/subnetIds='["ocid1.subnet.oc1.phx.aaaaaaaabrg5uf2uzc3ni4jkz4vhqwprofmlmo2mpumnuddd7iandssruohq"]' --config TENANCY=ocid1.tenancy.oc1..aaaaaaaaydrjm42otncda2xn7qtv7l3hqnd3zxn2u2siwdhniibwfv4wwhta --config USER=ocid1.user.oc1..aaaaaaaa4seqx6jeyma42ldy4cbuv35q4l42scz5p4rkz3rauuoioo26qwmq --config FINGERPRINT=42:82:5f:44:ca:a1:2e:58:d2:42:6a:af:52:d5:3d:04 --config PASSPHRASE=4242 --config REGION=us-phoenix-1 --config NAMESPACE=foobar fn-object-store-app`
 
 ## Deploy the functions
 
@@ -53,6 +52,8 @@ This example uses version [`1.3.5`](https://github.com/oracle/oci-java-sdk/relea
 Change into the top level directory - `cd oracle-functions-oci-object-store-basic`
 
 `fn -v deploy --build-arg PRIVATE_KEY_NAME=<PRIVATE_KEY_NAME> --app fn-object-store-app --all` 
+
+`PRIVATE_KEY_NAME` is the name of the private key (`.pem`) file which you copied to all the functions
 
 e.g. `fn -v deploy --build-arg PRIVATE_KEY_NAME=oci_private_key.pem --app fn-object-store-app --all`
 

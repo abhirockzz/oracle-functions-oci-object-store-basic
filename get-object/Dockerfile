@@ -28,5 +28,7 @@ COPY --from=build-stage /function/target/*.jar /function/app/
 # Add OCI private key for OCI Java SDK authentication (OCI object storage API)
 ARG PRIVATE_KEY_NAME
 COPY $PRIVATE_KEY_NAME /function/$PRIVATE_KEY_NAME
+# OCI_PRIVATE_KEY_FILE_NAME is used as environment variable in the function code. Altered name to avoid confusion
+ENV OCI_PRIVATE_KEY_FILE_NAME=${PRIVATE_KEY_NAME}
 
 CMD ["io.fnproject.example.ObjectStoreGetFunction::handle"]
