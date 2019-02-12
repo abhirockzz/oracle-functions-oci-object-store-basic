@@ -57,8 +57,9 @@ public class ObjectStoreListFunction {
     }
 
     public List<String> handle(String bucketName) {
-        System.err.println("Inside ObjectStoreListFunction/handle");
+
         if (objStoreClient == null) {
+            System.err.println("There was a problem creating the ObjectStorageClient object. Please check logs");
             return Collections.emptyList();
         }
 
@@ -70,6 +71,8 @@ public class ObjectStoreListFunction {
                     .namespaceName(nameSpace)
                     .bucketName(bucketName)
                     .build();
+
+            System.err.println("Listing objects from bucket " + bucketName);
 
             ListObjectsResponse response = objStoreClient.listObjects(lor);
 

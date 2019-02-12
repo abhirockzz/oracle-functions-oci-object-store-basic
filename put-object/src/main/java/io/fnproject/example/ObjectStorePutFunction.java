@@ -90,10 +90,10 @@ public class ObjectStorePutFunction {
     }
 
     public String handle(ObjectInfo objectInfo) {
-        System.err.println("Inside ObjectStorePutFunction/handle");
         String result = "FAILED";
 
         if (objStoreClient == null) {
+            System.err.println("There was a problem creating the ObjectStorageClient object. Please check logs");
             return result;
         }
         try {
@@ -108,7 +108,7 @@ public class ObjectStorePutFunction {
                     .build();
 
             PutObjectResponse poResp = objStoreClient.putObject(por);
-            result = "Successfully submitted Put request for object " + objectInfo.name + "in bucket " +objectInfo.bucketName + ". OPC reuquest ID is " + poResp.getOpcRequestId();
+            result = "Successfully submitted Put request for object " + objectInfo.name + "in bucket " + objectInfo.bucketName + ". OPC reuquest ID is " + poResp.getOpcRequestId();
             System.err.println(result);
 
         } catch (Throwable e) {

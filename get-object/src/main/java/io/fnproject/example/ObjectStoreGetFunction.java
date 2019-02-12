@@ -81,10 +81,11 @@ public class ObjectStoreGetFunction {
     }
 
     public String handle(GetObjectInfo objectInfo) {
-        System.err.println("Inside ObjectStoreGetFunction/handle");
+
         String result = "FAILED";
 
         if (objStoreClient == null) {
+            System.err.println("There was a problem creating the ObjectStorageClient object. Please check logs");
             return result;
         }
         try {
@@ -96,6 +97,7 @@ public class ObjectStoreGetFunction {
                     .bucketName(objectInfo.getBucketName())
                     .objectName(objectInfo.getName())
                     .build();
+            System.err.println("Getting content for object " + objectInfo.getName() + " from bucket " + objectInfo.getBucketName());
 
             GetObjectResponse response = objStoreClient.getObject(gor);
             result = new BufferedReader(new InputStreamReader(response.getInputStream()))
