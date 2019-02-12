@@ -1,4 +1,4 @@
-# Oracle Functions talking to Oracle Cloud Infrastructure Object Storage
+# Oracle Functions + OCI Object Storage
 
 This example shows how Oracle Functions can interact with Oracle Cloud Infrastructure Object Storage to execute operations such as putting a new object in a storage bucket, listing the objects of a storage bucket and getting the contents of a specific object. 
 
@@ -8,12 +8,11 @@ This example also demonstrates the usage of a custom `Dockerfile` to build your 
 
 ## Pre-requisites
 
-- You need to create a storage bucket - please refer to the [details in the documentation](https://docs.cloud.oracle.com/iaas/Content/Object/Tasks/managingbuckets.htm?TocPath=Services%7CObject%20Storage%7C_____2)
-- You also need to ensure that the user account which you configure in the application (details to follow) have the required Object Store privileges to execute get, list and put operations. If not, you might see `404` (authorization related) errors while invoking the function e.g. `Error fetching object (404, BucketNotFound, false) Either the bucket named 'test' does not exist in the namespace 'test-namespace' or you are not authorized to access it`. Please refer to the [IAM Policies section in the documentation](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/commonpolicies.htm) for further details
+- Object Storage - You need to create a storage bucket - please refer to the [details in the documentation](https://docs.cloud.oracle.com/iaas/Content/Object/Tasks/managingbuckets.htm?TocPath=Services%7CObject%20Storage%7C_____2). You also need to ensure that the user account which you configure in the application (details to follow) have the required Object Store privileges to execute get, list and put operations. If not, you might see `404` (authorization related) errors while invoking the function e.g. `Error fetching object (404, BucketNotFound, false) Either the bucket named 'test' does not exist in the namespace 'test-namespace' or you are not authorized to access it`. Please refer to the [IAM Policies section in the documentation](https://docs.cloud.oracle.com/iaas/Content/Identity/Concepts/commonpolicies.htm) for further details
 - Ensure you are using the latest version of the Fn CLI. To update simply run the following command - `curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh`
-- Configure the Oracle Functions service along with your development environment
-- Switch to the correct Fn context using `fn use context <context-name>` 
-- Clone or download this repository before proceeding further
+- Oracle Functions setup - Configure the Oracle Functions service along with your development environment and switch to the correct Fn context using `fn use context <context-name>` 
+
+Last but not the least, clone (`git clone https://github.com/abhirockzz/oracle-functions-oci-object-store-basic`) or download this repository before proceeding further
 
 ## Create an application
 
