@@ -57,7 +57,7 @@ Change into the top level directory - `cd oracle-functions-oci-object-store-basi
 
 e.g. `fn -v deploy --build-arg PRIVATE_KEY_NAME=oci_private_key.pem --app fn-object-store-app --all`
 
-To use a different OCI Java SDK version (e.g. `1.3.4`) - `fn -v deploy --build-arg PRIVATE_KEY_NAME=oci_private_key.pem --build-arg OCI_JAVA_SDK_VERSION=1.3.4 --app fn-object-store-app`
+To use a different OCI Java SDK version (e.g. `1.3.4`) - `fn -v deploy --build-arg PRIVATE_KEY_NAME=oci_private_key.pem --build-arg OCI_JAVA_SDK_VERSION=1.3.4 --app fn-object-store-app --all`
 
 > The above command(s) deploys **all** the functions (notice `--all` the the end). If you want to deploy one function at a time, enter the respective directory and use the same command as above **without the `--all` directive**
 
