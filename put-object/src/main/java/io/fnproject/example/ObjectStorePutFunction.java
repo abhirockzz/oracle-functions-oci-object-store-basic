@@ -49,7 +49,7 @@ public class ObjectStorePutFunction {
             objStoreClient = new ObjectStorageClient(provider);
             objStoreClient.setRegion(System.getenv().get("REGION"));
 
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             System.err.println("Error occurred in ObjectStorePutFunction constructor " + ex.getMessage());
         }
     }
@@ -111,9 +111,9 @@ public class ObjectStorePutFunction {
             result = "Successfully submitted Put request for object " + objectInfo.name + "in bucket " +objectInfo.bucketName + ". OPC reuquest ID is " + poResp.getOpcRequestId();
             System.err.println(result);
 
-        } catch (Exception e) {
-            System.err.println("Error invoking object store API " + e.getMessage());
-            result = "Error invoking object store API " + e.getMessage();
+        } catch (Throwable e) {
+            System.err.println("Error storing object in bucket " + e.getMessage());
+            result = "Error storing object in bucket " + e.getMessage();
         }
 
         return result;

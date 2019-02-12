@@ -51,7 +51,7 @@ public class ObjectStoreListFunction {
             objStoreClient = new ObjectStorageClient(provider);
             objStoreClient.setRegion(System.getenv().get("REGION"));
 
-        } catch (Exception ex) {
+        } catch (Throwable ex) {
             System.err.println("Error occurred in ObjectStoreListFunction constructor " + ex.getMessage());
         }
     }
@@ -79,8 +79,8 @@ public class ObjectStoreListFunction {
 
             System.err.println("Got list of objects in bucket " + bucketName);
 
-        } catch (Exception e) {
-            System.err.println("Error invoking object store API " + e.getMessage());
+        } catch (Throwable e) {
+            System.err.println("Error fetching object list from bucket " + e.getMessage());
         }
 
         return objNames;

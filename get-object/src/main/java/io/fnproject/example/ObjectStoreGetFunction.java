@@ -103,7 +103,7 @@ public class ObjectStoreGetFunction {
 
             System.err.println("Finished reading content for object " + objectInfo.getName());
 
-        } catch (Exception e) {
+        } catch (Throwable e) {
             System.err.println("Error fetching object " + e.getMessage());
             result = "Error fetching object " + e.getMessage();
         }
