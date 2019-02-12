@@ -20,9 +20,9 @@ public class ObjectStorePutFunction {
     private ObjectStorage objStoreClient = null;
 
     public ObjectStorePutFunction() {
-        System.err.println("Inside ObjectStorePutFunction ctor");
+        System.err.println("Inside ObjectStorePutFunction constructor");
         try {
-            String privateKey = System.getenv().getOrDefault("OCI_PRIVATE_KEY_FILE_NAME", "oci_api_key.pem");
+            String privateKey = System.getenv().get("OCI_PRIVATE_KEY_FILE_NAME");
             System.err.println("Private key " + privateKey);
             Supplier<InputStream> privateKeySupplier = () -> {
                 InputStream is = null;
@@ -46,14 +46,11 @@ public class ObjectStorePutFunction {
                             .privateKeySupplier(privateKeySupplier)
                             .build();
 
-            System.err.println("AuthenticationDetailsProvider setup");
-
             objStoreClient = new ObjectStorageClient(provider);
             objStoreClient.setRegion(System.getenv().get("REGION"));
 
-            System.err.println("ObjectStorage client setup");
         } catch (Exception ex) {
-            System.err.println("Error occurred in ObjectStorePutFunction ctor " + ex.getMessage());
+            System.err.println("Error occurred in ObjectStorePutFunction constructor " + ex.getMessage());
         }
     }
 
@@ -92,7 +89,6 @@ public class ObjectStorePutFunction {
 
     }
 
-
     public String handle(ObjectInfo objectInfo) {
         System.err.println("Inside ObjectStorePutFunction/handle");
         String result = "FAILED";
@@ -102,7 +98,7 @@ public class ObjectStorePutFunction {
         }
         try {
 
-            String nameSpace = System.getenv().getOrDefault("NAMESPACE", "test-namespace");
+            String nameSpace = System.getenv().get("NAMESPACE");
 
             PutObjectRequest por = PutObjectRequest.builder()
                     .namespaceName(nameSpace)
@@ -112,7 +108,8 @@ public class ObjectStorePutFunction {
                     .build();
 
             PutObjectResponse poResp = objStoreClient.putObject(por);
-            result = "OPC ID for upload operation for object " + objectInfo.name + " - " + poResp.getOpcRequestId();
+            result = "Successfully submitted Put request for object " + objectInfo.name + "in bucket " +objectInfo.bucketName + ". OPC reuquest ID is " + poResp.getOpcRequestId();
+            System.err.println(result);
 
         } catch (Exception e) {
             System.err.println("Error invoking object store API " + e.getMessage());

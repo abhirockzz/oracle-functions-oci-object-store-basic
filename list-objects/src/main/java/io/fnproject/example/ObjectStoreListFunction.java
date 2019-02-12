@@ -21,9 +21,9 @@ public class ObjectStoreListFunction {
     private ObjectStorage objStoreClient = null;
 
     public ObjectStoreListFunction() {
-        System.err.println("Inside ObjectStoreListFunction ctor");
+        System.err.println("Inside ObjectStoreListFunction constructor");
         try {
-            String privateKey = System.getenv().getOrDefault("OCI_PRIVATE_KEY_FILE_NAME", "oci_api_key.pem");
+            String privateKey = System.getenv().get("OCI_PRIVATE_KEY_FILE_NAME");
             System.err.println("Private key " + privateKey);
 
             Supplier<InputStream> privateKeySupplier = () -> {
@@ -48,14 +48,11 @@ public class ObjectStoreListFunction {
                             .privateKeySupplier(privateKeySupplier)
                             .build();
 
-            System.err.println("AuthenticationDetailsProvider setup");
-
             objStoreClient = new ObjectStorageClient(provider);
             objStoreClient.setRegion(System.getenv().get("REGION"));
 
-            System.err.println("ObjectStorage client setup");
         } catch (Exception ex) {
-            System.err.println("Error occurred in ObjectStoreListFunction ctor " + ex.getMessage());
+            System.err.println("Error occurred in ObjectStoreListFunction constructor " + ex.getMessage());
         }
     }
 
@@ -67,7 +64,7 @@ public class ObjectStoreListFunction {
 
         List<String> objNames = null;
         try {
-            String nameSpace = System.getenv().getOrDefault("NAMESPACE", "test-namespace");
+            String nameSpace = System.getenv().get("NAMESPACE");
 
             ListObjectsRequest lor = ListObjectsRequest.builder()
                     .namespaceName(nameSpace)
@@ -79,6 +76,8 @@ public class ObjectStoreListFunction {
             objNames = response.getListObjects().getObjects().stream()
                     .map((objSummary) -> objSummary.getName())
                     .collect(Collectors.toList());
+
+            System.err.println("Got list of objects in bucket " + bucketName);
 
         } catch (Exception e) {
             System.err.println("Error invoking object store API " + e.getMessage());

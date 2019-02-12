@@ -21,10 +21,10 @@ public class ObjectStoreGetFunction {
     private ObjectStorage objStoreClient = null;
 
     public ObjectStoreGetFunction() {
-        System.err.println("Inside ObjectStoreGetFunction ctor()");
+        System.err.println("Inside ObjectStoreGetFunction constructor");
 
         try {
-            String privateKey = System.getenv().getOrDefault("OCI_PRIVATE_KEY_FILE_NAME", "oci_api_key.pem");
+            String privateKey = System.getenv().get("OCI_PRIVATE_KEY_FILE_NAME");
             System.err.println("Private key " + privateKey);
             Supplier<InputStream> privateKeySupplier = () -> {
                 InputStream is = null;
@@ -48,14 +48,11 @@ public class ObjectStoreGetFunction {
                             .privateKeySupplier(privateKeySupplier)
                             .build();
 
-            System.err.println("AuthenticationDetailsProvider setup..");
-
             objStoreClient = new ObjectStorageClient(provider);
             objStoreClient.setRegion(System.getenv().get("REGION"));
 
-            System.err.println("ObjectStorage client setup");
         } catch (Throwable ex) {
-            System.err.println("Error occurred in ObjectStoreListFunction ctor " + ex.getMessage());
+            System.err.println("Error occurred in ObjectStoreListFunction constructor " + ex.getMessage());
 
         }
     }
@@ -92,7 +89,7 @@ public class ObjectStoreGetFunction {
         }
         try {
 
-            String nameSpace = System.getenv().getOrDefault("NAMESPACE", "test-namespace");
+            String nameSpace = System.getenv().get("NAMESPACE");
 
             GetObjectRequest gor = GetObjectRequest.builder()
                     .namespaceName(nameSpace)
@@ -103,6 +100,8 @@ public class ObjectStoreGetFunction {
             GetObjectResponse response = objStoreClient.getObject(gor);
             result = new BufferedReader(new InputStreamReader(response.getInputStream()))
                     .lines().collect(Collectors.joining("\n"));
+
+            System.err.println("Finished reading content for object " + objectInfo.getName());
 
         } catch (Exception e) {
             System.err.println("Error fetching object " + e.getMessage());
