@@ -1,5 +1,7 @@
 # Oracle Functions + OCI Object Storage
 
+This example is deprecated. Please see the [latest version here](https://github.com/abhirockzz/oracle-functions-oci-object-store)
+
 This example shows how Oracle Functions can interact with [Oracle Cloud Infrastructure Object Storage](https://docs.cloud.oracle.com/iaas/Content/Object/Concepts/objectstorageoverview.htm) to execute operations such as putting a new object in a storage bucket, listing the objects of a storage bucket and getting the contents of a specific object. 
 
 Individual functions cater to the put, get and list capabilities i.e. there are three functions as a part of a single application which you will deploy to Oracle Functions. These are Java functions which use the Object Storage APIs in the [OCI Java SDK](https://docs.cloud.oracle.com/iaas/Content/API/SDKDocs/javasdk.htm) for programatic interaction.
